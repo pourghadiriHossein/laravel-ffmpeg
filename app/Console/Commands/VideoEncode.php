@@ -36,10 +36,10 @@ class VideoEncode extends Command
         FFMpeg::fromDisk('uploads')
             ->open('video.mp4')
             ->exportForHLS()
-            ->addFormat($lowBitRate)
             ->withRotatingEncryptionKey(function($filename, $contents){
                 Storage::disk('secrets')->put($filename, $contents);
             })
+            ->addFormat($lowBitRate)
             // ->addFormat($midBitRate)
             // ->addFormat($highBitRate)
             ->onProgress(function ($progress) {
