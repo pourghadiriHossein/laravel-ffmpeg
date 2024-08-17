@@ -38,22 +38,20 @@ return [
 
         'uploads' => [
             'driver' => 'local',
-            'root' => public_path('uploads'),
-            'url' => env('APP_URL').'/public/uploads',
-            'visibility' => 'public',
+            'root' => storage_path('app/uploads'),
+            'throw' => false,
+        ],
+
+        'secrets' => [
+            'driver' => 'local',
+            'root' => storage_path('app/secrets'),
+            'throw' => false,
         ],
 
         'privates' => [
             'driver' => 'local',
             'root' => public_path('privates'),
             'url' => env('APP_URL').'/public/privates',
-            'visibility' => 'public',
-        ],
-
-        'secrets' => [
-            'driver' => 'local',
-            'root' => public_path('secrets'),
-            'url' => env('APP_URL').'/public/secrets',
             'visibility' => 'public',
         ],
 

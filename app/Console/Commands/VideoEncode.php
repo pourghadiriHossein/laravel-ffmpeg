@@ -13,7 +13,7 @@ class VideoEncode extends Command
      *
      * @var string
      */
-    protected $signature = 'app:video-encode';
+    protected $signature = 'make:encode';
 
     /**
      * The console command description.
