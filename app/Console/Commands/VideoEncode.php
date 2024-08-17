@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use FFMpeg\Format\Video\X264;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 class VideoEncode extends Command
 {
@@ -27,8 +28,8 @@ class VideoEncode extends Command
     public function handle()
     {
         $lowBitRate = (new X264)->setKiloBitrate(1000);
-        $midBitRate = (new X264)->setKiloBitrate(2500);
-        $highBitRate = (new X264)->setKiloBitrate(5000);
+        // $midBitRate = (new X264)->setKiloBitrate(2500);
+        // $highBitRate = (new X264)->setKiloBitrate(5000);
 
         $this->info('Converting Video Start:');
 
@@ -36,8 +37,11 @@ class VideoEncode extends Command
             ->open('video.mp4')
             ->exportForHLS()
             ->addFormat($lowBitRate)
-            ->addFormat($midBitRate)
-            ->addFormat($highBitRate)
+            ->withRotatingEncryptionKey(function($filename, $contents){
+                Storage::disk('secrets')->put($filename, $contents);
+            })
+            // ->addFormat($midBitRate)
+            // ->addFormat($highBitRate)
             ->onProgress(function ($progress) {
                 $this->info("Progress: {$progress}%");
             })

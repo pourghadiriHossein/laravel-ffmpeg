@@ -50,6 +50,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'secrets' => [
+            'driver' => 'local',
+            'root' => public_path('secrets'),
+            'url' => env('APP_URL').'/public/secrets',
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
